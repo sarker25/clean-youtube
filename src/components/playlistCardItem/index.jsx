@@ -126,8 +126,12 @@ const PlaylistCardItem = ({ item }) => {
           ) : (
             <Button
               onClick={() => {
-                addToFavorite(item.id);
-                handleAlert("success", "Added To Favorite");
+                if (items.length > 4) {
+                  handleAlert("error", "You can't add more than 5 Playlist");
+                } else {
+                  addToFavorite(item.id);
+                  handleAlert("success", "Added To Favorite");
+                }
               }}
               title="Add To Favorite"
             >
