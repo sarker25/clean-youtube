@@ -19,7 +19,7 @@ const VideoPlayer = ({ videoId }) => {
       width={"100%"}
       height={"390px"}
       controls={true}
-      playing={false}
+      playing={true}
       onProgress={onProgres}
       onReady={onReady}
     />

@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -81,7 +80,7 @@ const PlaylistCardItem = ({ item }) => {
           <IconButton
             onClick={() => {
               deleteHandler(item.id);
-              handleAlert("error", "Playlist Deleted");
+              handleAlert("error", "Playlist Deleted    ");
             }}
           >
             <DeleteIcon />

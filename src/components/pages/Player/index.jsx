@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { Container } from "@mui/system";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import VideoPlayer from "../../VideoPlayer";
 import { useParams } from "react-router-dom";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import VideoLists from "../../Items";
 import { useEffect } from "react";
+import Editor from "../../Editor";
 
 const PLayer = () => {
   const { data } = useStoreState((state) => state.playlists);
-  const { getPlaylist, addToplaylist } = useStoreActions(
-    (actions) => actions.playlists
-  );
+  const { data: noteData } = useStoreState((state) => state.note);
+  const { getPlaylist } = useStoreActions((actions) => actions.playlists);
+  const { addtoNote } = useStoreActions((actions) => actions.note);
   const { playlistId } = useParams();
 
   const playlist = data[playlistId];
@@ -20,31 +21,16 @@ const PLayer = () => {
   }
   const playlistVideos = playlist.items;
   const [currentItem, setCurrentItem] = useState(playlistVideos[0]);
-  // const [note, setNote] = useState(currentItem.notes);
+  const [note, setNote] = useState("");
 
   const itemClickHandler = (item) => {
     setCurrentItem(item);
   };
-  // console.log(currentItem);
-  // const submitNote = () => {
-  //   const newPlaylist = {
-  //     ...data[playlistId],
-  //     items: data[playlistId].items.map((item) => {
-  //       if (item.id === currentItem.id) {
-  //         return {
-  //           ...item,
-  //           notes: note,
-  //         };
-  //       } else {
-  //         return item;
-  //       }
-  //     }),
-  //   };
 
-  //   addToplaylist(newPlaylist);
-  // };
+  const submitNote = () => {
+    addtoNote({ playlistId, videoId: currentItem.id, note });
+  };
 
-  // console.log(note);
   return (
     <Container maxWidth={"lg"} sx={{ my: 13 }}>
       <Grid container spacing={2}>
@@ -54,10 +40,23 @@ const PLayer = () => {
             {currentItem.title}
           </Typography>
 
-          <Stack sx={{ marginTop: "20px" }}>
-            <Typography variant="subtitle-1">Notes</Typography>
-            {/* <Editor setNote={setNote} /> */}
+          <Stack>
+            {/* <Button variant="contained">Add Note</Button>
+            <Typography variant="subtitle-1">Notes</Typography> */}
+            {/* 
+            <Editor
+              setNote={setNote}
+              // value={noteData[playlistId][currentItem.id]}
+            /> */}
           </Stack>
+          {/* <Stack>
+            {noteData[playlistId][currentItem.id] && (
+              <>
+                <Typography>{noteData[playlistId][currentItem.id]}</Typography>
+                <p>paragraph</p>
+              </>
+            )}
+          </Stack> */}
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <VideoLists
@@ -67,7 +66,6 @@ const PLayer = () => {
           />
           <Stack sx={{ marginTop: "20px" }}>
             <p>Random Playlist</p>
-            {/* {/* <RandomPlaylist itemClickHandler={itemClickHandler} /> */}
           </Stack>
         </Grid>
       </Grid>

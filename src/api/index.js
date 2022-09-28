@@ -44,7 +44,6 @@ const getPlaylistByid = async (playlistId) => {
       description,
       thumbnail: url,
       itemChannelTitle: channelTitle,
-      notes: "",
     };
   });
   return {
